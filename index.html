@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <link rel="icon" type="image/png" href="images/favicon-32x32.png" /> -->
+  <link rel="stylesheet" href="css/style.css" />
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <title>Rest Countries</title>
+</head>
+<body ng-class="{'light-mode' : lightMode }" ng-controller="myController" ng-init="ngInit()" ng-cloak>
+  <header class="header">
+    <div class="container">
+      <div class="header__left">
+        <p class="header__left__text">
+          Where in the world?
+        </p>
+      </div>
+      <div class="header__right" ng-click="lightMode = !lightMode">
+        <img ng-src="images/{{lightMode ? 'light-mode-moon.svg' : 'moon-dark.svg'}}" alt="" class="header__right__img" />
+        <p class="header__right__text">
+          {{lightMode ? 'Dark' : 'Light'}} mode
+        </p>
+      </div>
+    </div>
+  </header>
+  <section id="main" class="main" ng-hide="detailCountry">
+    <div class="container">
+      <div class="main__upper">
+        <div class="main__upper__search">
+          <div class="main__upper__search__icon">
+            <img ng-src="images/{{lightMode ? 'light-mode-search.svg' : 'search.svg'}}" alt="Search" class="main__upper__search__icon__img" />
+          </div>
+          <div class="main__upper__search__form">
+            <input class="main__upper__search__form__input" ng-model="searchText" maxlength="25" type="text" placeholder="Search for a country..." />
+          </div>
+        </div>
+        <div class="main__upper__filter">
+          <div class="main__upper__filter__head" ng-click="filterIsOpen = !filterIsOpen">
+            <p class="main__upper__filter__head__text">
+              Filter by Region
+            </p>
+            <img src="images/{{lightMode ? 'light-mode-arrow.svg' : 'arrow.svg'}}" alt="" class="main__upper__filter__head__img" ng-class="{'filterIsOpen' : filterIsOpen}" />
+          </div>
+          <div class="main__upper__filter__body"
+               ng-show="filterIsOpen">
+            <ul class="main__upper__filter__body__ul">
+              <li class="main__upper__filter__body__ul__li" ng-repeat="item in continentList" ng-click="requestData($index)">
+                <p class="main__upper__filter__body__ul__li__p">
+                  {{item.name}}
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="main__content">
+        <div class="main__content__group">
+          <div class="main__content__group__item" ng-repeat="item in countries | filter: searchText" ng-click="openDetail(item)">
+              <div class="main__content__group__item__media">
+                <img src="{{item.flags.svg}}" alt="{{item.name.official}} image" class="main__content__group__item__media__img" />
+              </div>
+              <div class="main__content__group__item__info">
+                <div class="main__content__group__item__info__name">
+                  <p class="main__content__group__item__info__name__text">
+                    {{item.name.official}}
+                  </p>
+                </div>
+                <div class="main__content__group__item__info__description">
+                  <div class="main__content__group__item__info__description__detail">
+                    <p class="main__content__group__item__info__description__detail__text">
+                      Population: <span>{{item.population | number : 3}}</span>
+                    </p>
+                  </div>
+                  <div class="main__content__group__item__info__description__detail">
+                    <p class="main__content__group__item__info__description__detail__text">
+                      Region: <span>{{item.region}}</span>
+                    </p>
+                  </div>
+                  <div class="main__content__group__item__info__description__detail">
+                    <p class="main__content__group__item__info__description__detail__text">
+                      Capital: <span>{{item.capital[0]}}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="detailedCountry" ng-show="detailCountry">
+    <div class="container">
+      <div class="detailedCountry__topSide">
+        <div class="detailedCountry__topSide__button" ng-click="detailCountry = false">
+          <img src="images/{{lightMode ? 'light-mode-long-arrow.svg' : 'long-arrow.svg'}}" alt="" class="detailedCountry__topSide__button__img" />
+          <p class="detailedCountry__topSide__button__text">
+            Back
+          </p>
+        </div>
+      </div>
+      <div class="detailedCountry__content">
+        <div class="detailedCountry__content__flag">
+          <img src="{{viewCountry.flags.svg}}" alt="" class="detailedCountry__content__flag__img" />
+        </div>
+        <div class="detailedCountry__content__title">
+          <p class="detailedCountry__content__title__text">
+            {{    viewCountry.name.common  }}
+          </p>
+        </div>
+        <div class="detailedCountry__content__mainInfo">
+          <ul class="detailedCountry__content__mainInfo__ul">
+            <li class="detailedCountry__content__mainInfo__ul__li">
+              <p class="detailedCountry__content__mainInfo__ul__li__text">
+                Native Name: <span>{{  viewCountry.nativeLang.official }}</span>
+              </p>
+            </li>
+            <li class="detailedCountry__content__mainInfo__ul__li">
+              <p class="detailedCountry__content__mainInfo__ul__li__text">
+                Population: <span>{{ viewCountry.population | number : 3}}</span>
+              </p>
+            </li>
+            <li class="detailedCountry__content__mainInfo__ul__li">
+              <p class="detailedCountry__content__mainInfo__ul__li__text">
+                Region: <span>{{  viewCountry.region }}</span>
+              </p>
+            </li>
+            <li class="detailedCountry__content__mainInfo__ul__li">
+              <p class="detailedCountry__content__mainInfo__ul__li__text">
+                Sub Region: <span>{{ viewCountry.subregion }}</span>
+              </p>
+            </li>
+            <li class="detailedCountry__content__mainInfo__ul__li">
+              <p class="detailedCountry__content__mainInfo__ul__li__text">
+                Capital: <span>{{ viewCountry.capital[0] }}</span>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="detailedCountry__content__extraInfo">
+          <ul class="detailedCountry__content__extraInfo__ul">
+            <li class="detailedCountry__content__extraInfo__ul__li">
+              <p class="detailedCountry__content__extraInfo__ul__li__text">
+                Top Level Domain: <span>{{ viewCountry.tld[0] }}</span>
+              </p>
+            </li>
+            <li class="detailedCountry__content__extraInfo__ul__li">
+              <p class="detailedCountry__content__extraInfo__ul__li__text">
+                Currencies: <span ng-repeat="item in viewCountry.customCurrencies">{{  item[0] }}</span>
+              </p>
+            </li>
+            <li class="detailedCountry__content__extraInfo__ul__li">
+              <p class="detailedCountry__content__extraInfo__ul__li__text">
+                Languages: <span ng-repeat="item in viewCountry.customLanguages">{{ item }}</span>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="detailedCountry__content__neightbor">
+          <div class="detailedCountry__content__neightbor__title">
+            <p class="detailedCountry__content__neightbor__title__text">
+              Border Countries:
+            </p>
+          </div>
+          <div class="detailedCountry__content__neightbor__group">
+            <div class="detailedCountry__content__neightbor__group__item" ng-repeat="item in viewCountry.borders">
+              <p class="detailedCountry__content__neightbor__group__item__text">
+                {{ item }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
