@@ -144,6 +144,7 @@ table {
 .header__right__text {
   font-size: 1.1rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .light-mode .main__upper__search {
