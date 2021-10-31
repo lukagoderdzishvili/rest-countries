@@ -1,0 +1,49 @@
+.light-mode{
+    .header{
+        background: $light-mode-background;
+        box-shadow: 0px -10px 30px 0 $light-mode-input;
+    }
+}
+
+
+.header{
+    @include displayFlex(row, center, center, 0);
+    background: $dark-mode-elements;
+    padding: 20px;
+    user-select: none;
+
+    @include responsive(bigScreenResolution){
+        padding: 30px;
+    }
+
+    .container{
+        @include displayFlex(row, space-between, center, 0);
+        @include size(100%);
+
+        @include responsive(miniScreenLaptop){
+            width: 95%;
+        }
+    }
+
+    &__left{
+        &__text{
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+    }
+
+    &__right{
+        @include displayGrid(.37fr 1fr, 1fr, 0);
+        align-items: flex-end;
+        cursor: pointer;
+
+        &__img{
+            width: 1.3rem;
+        }
+
+        &__text{
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+    }
+}

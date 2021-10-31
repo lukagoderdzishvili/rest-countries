@@ -1,0 +1,45 @@
+$dark-mode-background: hsl(207, 26%, 17%); // #202c37;
+$dark-mode-elements: hsl(209, 23%, 22%); //#2b3945;
+
+
+$light-mode-background: hsl(0, 0%, 98%);
+$light-mode-input: hsl(0, 0%, 52%);
+$light-mode-text: hsl(200, 15%, 8%);
+
+$white: hsl(0, 0%, 100%);
+
+
+
+
+@mixin displayFlex($flex-direction, $justify-content, $align-items, $gap){
+    display: flex;
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    gap: $gap;
+}
+
+@mixin size($width, $height: false){
+    @if $height {
+        height: $height;
+    } @else{
+        height: $width;
+    }
+    width: $width;
+    
+}
+
+@mixin setPosition($position, $top, $right, $bottom, $left){
+    position: $position;
+    left: $left;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+}
+
+@mixin displayGrid($columns, $rows, $gap){
+    display: grid;
+    grid-template-columns: $columns;
+    grid-template-rows: $rows;
+    gap: $gap;
+}

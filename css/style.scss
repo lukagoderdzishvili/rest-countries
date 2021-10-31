@@ -1,0 +1,45 @@
+@import 'config';
+@import 'reset';
+@import 'responsive';
+@import 'header';
+@import 'main';
+@import 'detailedCountry';
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+
+:root {
+    --app-height: 100%;
+}
+
+html{
+    font-size: 10px;
+
+    @include responsive(laptop){
+        font-size: 12px; 
+    }
+
+    @include responsive(bigScreenResolution){
+        font-size: 14px;
+    }
+
+    @include responsive(fullHd){
+        font-size: 15px;
+    }
+}
+
+body{
+    @include size(100%);
+    font-family: 'Nunito Sans', sans-serif;
+    background: $dark-mode-background;
+    color: $white;
+    min-height: 550px;
+
+    &.light-mode{
+        background: $light-mode-background;
+        color: $light-mode-text;
+    }
+}
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}

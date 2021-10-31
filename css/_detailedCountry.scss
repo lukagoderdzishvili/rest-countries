@@ -1,0 +1,173 @@
+.light-mode{
+    .detailedCountry{
+        &__topSide{
+            &__button{
+                background: $light-mode-background;
+            }
+        }
+
+        &__content{
+            &__neightbor{
+                &__group{
+                    &__item{
+                        background: $light-mode-background;
+                        border-color: #fff;
+                    }
+                }
+            }
+        }        
+    }
+}
+
+.detailedCountry{
+    @include displayFlex(row, center, center, 0);
+    padding: 40px 25px;
+
+    .container{
+        display: grid;
+        grid-gap: 50px;
+
+        @include responsive(miniScreenLaptop){
+            width: 95%;
+        }
+        
+    }
+
+    &__topSide{
+        @include displayFlex(row, flex-start, center, 0);
+
+        &__button{
+            @include displayGrid(.8fr 1fr, 1fr, 0);
+            align-items: center;
+            width: max-content;
+            padding: 10px 25px;
+            background: #2b3945;
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 0px #0000006b;
+            cursor: pointer;
+
+            &__img{
+                width: 15px;
+                transform: rotate(-90deg);
+            }
+        }
+    }
+
+    &__content{
+        display: grid;
+        grid-gap: 30px;
+
+        @include responsive(miniScreenLaptop){
+            @include displayGrid(2fr 1fr 1fr, .5fr auto auto, 20px);
+        }
+
+        @include responsive(bigScreenResolution){
+            row-gap: 50px;
+        }
+
+        &__flag{
+
+            @include responsive(miniScreenLaptop){
+                grid-area: 1 / 1 / 4 / 2;
+            }
+
+            &__img{
+                max-width: 80vw;
+                box-shadow: 0px 0px 5px 0 #00000045;
+
+                @include responsive(miniScreenLaptop){
+                    width: 100%;
+                    object-fit: cover;
+                }
+
+                @include responsive(laptop){
+                    width: 80%;
+                }
+            }
+        }
+
+        &__title{
+
+            @include responsive(miniScreenLaptop){
+                @include displayFlex(row, flex-start, center, 0);
+                grid-area: 1 / 2 / 2 / 4;
+            }
+
+            &__text{
+                font-weight: 900;
+                font-size: 2rem;
+            }
+        }
+
+        &__mainInfo{
+            @include responsive(miniScreenLaptop){
+                grid-area: 2 / 2 / 3 / 3;
+            }
+        }
+
+        &__extraInfo{
+            @include responsive(miniScreenLaptop){
+                grid-area: 2 / 3 / 3 / 4;
+            }
+        }
+
+        &__mainInfo, &__extraInfo{
+            &__ul{
+                display: grid;
+                grid-gap: 12px;
+
+                @include responsive(bigScreenResolution){
+                    grid-gap: 15px;
+                }
+
+                &__li{
+                    font-weight: 600;
+                    font-size: 1.2rem;
+
+                    span{
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+
+        &__neightbor{
+            display: grid;
+            grid-gap: 20px;
+
+            @include responsive(miniScreenLaptop){
+                grid-area: 3 / 2 / 4 / 4;
+            }
+
+           &__title{
+               font-size: 1.5rem;
+               font-weight: 600;
+           }
+
+           &__group{
+               @include displayGrid(1fr 1fr 1fr, auto auto auto, 15px);
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                font-weight: 500;
+                font-size: 1.1rem;
+                gap: 15px;
+
+                &__item{
+                    @include displayFlex(row, center, center, 0);
+                    border: 1px solid $dark-mode-elements;
+                    padding: 7px;
+                    border-radius: 4px;
+                    background: $dark-mode-elements;
+                    box-shadow: 0px 0px 5px 0px #0000006b;
+
+                    @include responsive(bigScreenResolution){
+                        padding: 15px;
+                    }
+                }
+           }
+        }
+    }
+}
