@@ -130,7 +130,7 @@ table {
       grid-template-columns: 0.37fr 1fr;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
-  gap: 0;
+  gap: 10px;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
